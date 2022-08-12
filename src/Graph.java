@@ -48,6 +48,17 @@ public class Graph {
         return count;
     }
 
+    public int lowestDegree(){
+        int count = 0;
+        for(int i=0; i<this.adjMatriz.length; i++){
+            if(count > this.alfaDegree(i)){
+                count = this.alfaDegree(i);
+            }
+        }
+        return count;
+    }
+    
+
     @Override
     public String toString() {
         String str = "";

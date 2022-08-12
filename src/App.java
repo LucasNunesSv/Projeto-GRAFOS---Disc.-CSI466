@@ -18,6 +18,7 @@ public class App {
         System.out.println("Num de Vizinhos: " + g1.alfaDegree(4));
 
         System.out.println("\nMaior Grau presente no Grafo = " + g1.highestDegree());
+        System.out.println("\nMenor Grau presente no Grafo = " + g1.lowestDegree());
 
     }
 }
