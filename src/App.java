@@ -20,5 +20,15 @@ public class App {
         System.out.println("\nMaior Grau presente no Grafo = " + g1.highestDegree());
         System.out.println("\nMenor Grau presente no Grafo = " + g1.lowestDegree());
 
+        Graph complementGraph;
+        complementGraph = g1.complement();
+        System.out.println("\n" + complementGraph.toString());
+
+        Graph gA = new Graph(4);
+        Graph gB = new Graph(4);
+        Graph gC = new Graph(4);
+        Graph gD = new Graph(4);
+        
+
     }
 }
