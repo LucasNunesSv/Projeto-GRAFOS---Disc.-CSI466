@@ -1,34 +1,54 @@
 public class App {
     public static void main(String[] args) throws Exception {
 
-        Graph g1 = new Graph(4);
+        Graph g = new Graph(4);
 
-        g1.addEdge(0, 1, 3);
-        g1.addEdge(1, 0, 3);
-        g1.addEdge(0, 3, 4);
-        g1.addEdge(3, 0, 4);
-        g1.addEdge(0, 4, 1);
-        g1.addEdge(0, 2, 3);
+        g.addEdge(0, 1, 3);
+        g.addEdge(1, 0, 3);
+        g.addEdge(0, 3, 4);
+        g.addEdge(3, 0, 4);
+        g.addEdge(0, 4, 1);
+        g.addEdge(0, 2, 3);
 
-        System.out.println(g1);
+        System.out.println(g);
         
-        System.out.println("Num de Vizinhos: " + g1.alfaDegree(0));
-        System.out.println("Num de Vizinhos: " + g1.alfaDegree(1));
-        System.out.println("Num de Vizinhos: " + g1.alfaDegree(2));
-        System.out.println("Num de Vizinhos: " + g1.alfaDegree(4));
+        System.out.println("Num de Vizinhos: " + g.alfaDegree(0));
+        System.out.println("Num de Vizinhos: " + g.alfaDegree(1));
+        System.out.println("Num de Vizinhos: " + g.alfaDegree(2));
+        System.out.println("Num de Vizinhos: " + g.alfaDegree(4));
 
-        System.out.println("\nMaior Grau presente no Grafo = " + g1.highestDegree());
-        System.out.println("\nMenor Grau presente no Grafo = " + g1.lowestDegree());
+        System.out.println("\nMaior Grau presente no Grafo = " + g.highestDegree());
+        System.out.println("\nMenor Grau presente no Grafo = " + g.lowestDegree());
 
         Graph complementGraph;
-        complementGraph = g1.complement();
+        complementGraph = g.complement();
         System.out.println("\n" + complementGraph.toString());
 
-        Graph gA = new Graph(4);
-        Graph gB = new Graph(4);
-        Graph gC = new Graph(4);
-        Graph gD = new Graph(4);
-        
+        Graph g1 = new Graph(4);
+      g1.addEdge(0,1,1);g1.addEdge(0,3,1);
+      g1.addEdge(1,0,1);g1.addEdge(3,0,1);
+      System.out.println(g1);
 
+      Graph g2 = new Graph(4);
+      g2.addEdge(0,2,1);g2.addEdge(2,0,1);
+      g2.addEdge(1,2,1);g2.addEdge(2,1,1);
+      g2.addEdge(2,3,1);g2.addEdge(3,2,1);
+      g2.addEdge(1,3,1);g2.addEdge(3,1,1);
+      System.out.println(g2);
+
+      Graph g3 = new Graph(4);
+      g3.addEdge(0,3,1);g3.addEdge(3,0,1);
+      System.out.println(g3);
+
+      Graph g4 = new Graph(4);
+      g4.addEdge(0,1,1);g4.addEdge(1,0,1);
+      g4.addEdge(2,3,1);g4.addEdge(3,2,1);
+      System.out.println(g4);
+
+      System.out.println("G1 é SubGrafo de G2? = " + g1.subGraph(g2));
+      System.out.println("G1 é SubGrafo de G3? = " + g1.subGraph(g3));
+      System.out.println("G2 é SubGrafo de G3? = " + g2.subGraph(g3));
+      System.out.println("G1 é SubGrafo de G4? = " + g1.subGraph(g4));
+        
     }
 }

@@ -22,12 +22,10 @@ public class Graph {
     }
 
     public int alfaDegree(int node){
-        
         if(node >= 4){
             System.out.println("\n !!! Invalid node number !!!");
             return -1;
         }
-
         int count = 0;
         for(int i=0; i<this.adjMatriz.length; i++){
             if(this.adjMatriz[node][i] != 0){
