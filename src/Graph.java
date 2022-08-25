@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Graph {
@@ -13,12 +14,23 @@ public class Graph {
     }
 
     public void addEdge(int source, int sink, int weight) {
-        if (source < 0 || source >= this.adjMatriz.length || sink < 0 || sink >= this.adjMatriz.length || weight <= 0) {
+        if (source < 0 || source > this.adjMatriz.length - 1 || sink < 0 || sink > this.adjMatriz.length -1  || weight <= 0) {
             System.out.println("\n!!! Invalid edg: So: " + source + " /Si: " + sink + " /We: " + weight + "\n");
             return;
         }
         this.countEdges++;
         this.adjMatriz[source][sink] = weight;
+    }
+
+    public void addEdgeUnriented(int source, int sink, int weight){
+        if (source < 0 || source > this.adjMatriz.length - 1 || sink < 0 || sink > this.adjMatriz.length -1  || weight <= 0) {
+            System.out.println("\n!!! Invalid edg: So: " + source + " /Si: " + sink + " /We: " + weight + "\n");
+            return;
+        }
+        this.countEdges += 2;
+        this.adjMatriz[source][sink] = weight;
+        this.adjMatriz[sink][source] = weight;
+
     }
 
     public int alfaDegree(int node) {
@@ -99,6 +111,35 @@ public class Graph {
 
         return true;
 
+    }
+
+    public ArrayList<Integer> busca_largura(int s){
+        int desc[] = new int[this.countNodes];
+        ArrayList<Integer> Q = new ArrayList<Integer>();
+        Q.add(s);
+        ArrayList<Integer> R = new ArrayList<Integer>();
+        R.add(s);
+        desc[s] = 1;
+        while(Q.size() > 0){
+            int u = Q.remove(0);
+            for(int j=0; j<this.adjMatriz[u].length; j++){
+                if(desc[j] == 0){
+                    Q.add(j);
+                    R.add(j);
+                    desc[j] = 1;
+                }
+            }
+        }
+        return R;
+    }
+
+    public boolean isConex(){
+        ArrayList<Integer> array = this.busca_largura(0);
+        if(array.size() == this.countNodes){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     @Override

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class App {
     public static void main(String[] args) throws Exception {
 
@@ -66,5 +68,9 @@ public class App {
         G5.addEdge(0, 3, 1);
         System.out.printf("\nDensidade de G5: %.2f", G5.density());
         System.out.println("\nO Grafo G5 é orientado?: " + G5.oriented());
+
+        ArrayList<Integer>list_largura = g3.busca_largura(1);
+        System.out.println(list_largura);
+        System.out.println("O Grafo G3 é conexo?: " + g3.isConex());
     }
 }
