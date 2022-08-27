@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Stack;
 
 public class Graph {
 
@@ -142,6 +143,69 @@ public class Graph {
         }
     }
 
+    public void add_unoriented_edge(int source, int sink, int weight){
+        this.addEdge(source, sink, weight);
+        this.addEdge(sink, source, weight);
+    }
+
+    public ArrayList<Integer> busca_profundidade(int s){
+
+        int desc[] = new int[this.countNodes];
+
+        for(int i=0; i<this.countNodes; i++){
+            desc[i] = 0;
+        }
+
+        ArrayList<Integer> S = new ArrayList<Integer>();
+        S.add(s);
+        ArrayList<Integer> R = new ArrayList<Integer>();
+        R.add(s);
+        desc[s] = 1;
+
+        while(S.size() > 0){
+            int u = S.get(S.size()-1);
+            int v = notDescAdj(u, desc);
+            if(v != -1){
+                S.add(v);
+                R.add(v);
+                desc[v] = 1;
+            }else{
+                S.remove(S.size() - 1);
+            }
+        }
+        return R;
+    }
+
+    public int notDescAdj(int u, int[] desc){
+        for(int v=0; v<this.adjMatriz[u].length; v++){
+            if(this.adjMatriz[u][v] != 0 && desc[v] == 0){
+                return v;
+            }
+        }
+        return -1;
+    }
+
+    public void DFS_REC_AUX(int u, int[] desc, ArrayList R){
+        desc[u] = 1;
+        R.add(u);
+        for(int i=0; i<this.adjMatriz[u].length; i++){
+            if(this.adjMatriz[u][i] != 0 && desc[i] == 0){
+                DFS_REC_AUX(i, desc, R);
+            }
+        }
+    }
+
+    public ArrayList<Integer> DFS_REC(int s){ 
+        int desc[] = new int[this.countNodes];
+        for(int i=0; i<this.countNodes; i++){
+            desc[i] = 0;
+        }
+        ArrayList<Integer> R = new ArrayList<Integer>();
+        DFS_REC_AUX(s,desc,R);
+        return R;
+    }
+
+
     @Override
     public String toString() {
         String str = "";
@@ -154,3 +218,47 @@ public class Graph {
         return str;
     }
 }
+
+/*
+
+public ArrayList<Integer> dfs(int s) { // busca em profundidade
+    // initialization
+    int[] desc = new int[this.countNodes];
+    ArrayList<Integer> S = new ArrayList<>();
+    S.add(s);
+    ArrayList<Integer> R = new ArrayList<>();
+    R.add(s);
+    desc[s] = 1;
+// main loop
+    while (S.size() > 0) {
+      int u = S.get(S.size() - 1);
+      int v = notDescAdj(u, desc);
+      if (v != -1) {
+        S.add(v);
+        R.add(v);
+        desc[v] = 1;
+      }
+      else {
+        S.remove(S.size() - 1);
+      }
+    }
+    return R;
+  }
+
+   public ArrayList<Integer> dfsRec(int s) {
+    int[] desc = new int[this.countNodes];
+    ArrayList<Integer> R = new ArrayList<>();
+    dfsRecAux(s, desc, R);
+    return R;
+  }
+
+  public void dfsRecAux(int u, int[] desc, ArrayList<Integer> R) {
+    desc[u] = 1;
+    R.add(u);
+    for (int v = 0; v < this.adjMatrix[u].length; ++v) {
+      if (this.adjMatrix[u][v] != 0 && desc[v] == 0) {
+        dfsRecAux(v, desc, R);
+      }
+    }
+  }
+ */

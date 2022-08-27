@@ -70,7 +70,24 @@ public class App {
         System.out.println("\nO Grafo G5 é orientado?: " + G5.oriented());
 
         ArrayList<Integer>list_largura = g3.busca_largura(1);
-        System.out.println(list_largura);
+        System.out.println("\nBusca Largura: " + list_largura);
         System.out.println("O Grafo G3 é conexo?: " + g3.isConex());
+
+        Graph G6 = new Graph(8);
+        G6.addEdgeUnriented(6,1,1);
+        G6.addEdgeUnriented(6,7,1);
+        G6.addEdgeUnriented(6,3,1);
+        G6.addEdgeUnriented(3,4,1);
+        G6.addEdgeUnriented(7,0,1);
+        G6.addEdgeUnriented(0,5,1);
+        G6.addEdgeUnriented(1,2,1);
+
+        ArrayList<Integer>list_profundidade = G6.busca_profundidade(2);
+        System.out.println("\nBusca Profundidade " + list_profundidade);
+        list_profundidade = G6.DFS_REC(2);
+        System.out.println("\nBusca Profundidade Recursiva " + list_profundidade);
+
+
+
     }
 }
