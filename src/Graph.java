@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileReader;
 
 public class Graph {
 
@@ -13,6 +17,29 @@ public class Graph {
         this.countEdges = 0;
         this.adjMatriz = new int[numNodes][numNodes];
     }
+
+    public Graph(String fileName) throws IOException {
+        File file = new File(fileName);
+        FileReader reader = new FileReader(file);
+        BufferedReader bufferedReader = new BufferedReader(reader);
+    
+        // Read header
+        String[] line = bufferedReader.readLine().split(" ");
+        this.countNodes = (Integer.parseInt(line[0]));
+        int fileLines = (Integer.parseInt(line[1]));
+
+        // Create and fill adjMatrix with read edges
+        this.adjMatriz = new int[this.countNodes][this.countNodes];
+         for (int i = 0; i < fileLines; ++i) {
+          String[] edgeInfo = bufferedReader.readLine().split(" ");
+          int source = Integer.parseInt(edgeInfo[0]);
+          int sink = Integer.parseInt(edgeInfo[1]);
+          int weight = Integer.parseInt(edgeInfo[2]);
+          addEdge(source, sink, weight);
+        }
+        bufferedReader.close();
+        reader.close();
+      }
 
     public void addEdge(int source, int sink, int weight) {
         if (source < 0 || source > this.adjMatriz.length - 1 || sink < 0 || sink > this.adjMatriz.length -1  || weight <= 0) {
@@ -185,7 +212,7 @@ public class Graph {
         return -1;
     }
 
-    public void DFS_REC_AUX(int u, int[] desc, ArrayList R){
+    private void DFS_REC_AUX(int u, int[] desc, ArrayList R){
         desc[u] = 1;
         R.add(u);
         for(int i=0; i<this.adjMatriz[u].length; i++){
@@ -194,6 +221,8 @@ public class Graph {
             }
         }
     }
+
+
 
     public ArrayList<Integer> DFS_REC(int s){ 
         int desc[] = new int[this.countNodes];
@@ -205,6 +234,32 @@ public class Graph {
         return R;
     }
 
+    public ArrayList ORD_TOP(){
+
+        int desc[] = new int [this.countNodes];
+        ArrayList<Integer> R = new ArrayList<Integer>();
+
+        // for(int i=0; i<this.adjMatriz[i].length; i++){
+        //     desc[i] = 0;
+        // }
+
+        for(int i=0; i<this.countNodes; i++){
+            if(desc[i] == 0){
+                ORD_TOP_AUX(i, desc, R);
+            }
+        }
+        return R;
+    }
+
+    private void ORD_TOP_AUX(int u, int[] desc, ArrayList R){
+        desc[u] = 1;
+        for(int v=0; v<adjMatriz[u].length; v++){
+            if(this.adjMatriz[u][v] != 0 && desc[v] == 0){
+                ORD_TOP_AUX(v, desc, R);
+            }
+        }
+        R.add(0, u);
+    }
 
     @Override
     public String toString() {
@@ -218,3 +273,6 @@ public class Graph {
         return str;
     }
 }
+
+
+

@@ -1,7 +1,9 @@
+import java.io.IOException;
 import java.util.ArrayList;
 
+
 public class App {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws IOException {
 
         Graph g = new Graph(4);
 
@@ -87,7 +89,10 @@ public class App {
         list_profundidade = G6.DFS_REC(2);
         System.out.println("\nBusca Profundidade Recursiva " + list_profundidade);
 
+        Graph G_dinamic = new Graph("src/Graph2.txt");
 
+        ArrayList<Integer>ORD_TOP = G_dinamic.ORD_TOP();
+        System.out.println("\nORD_TOP:  " + ORD_TOP);
 
     }
 }
